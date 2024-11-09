@@ -17,72 +17,84 @@ git clone https://github.com/yourusername/yourproject.git
 cd yourproject
 ```
 
-Step 2: Set Up Python Environment and Install Dependencies
-This project uses Python for model training and inference. To ensure a clean environment, use a virtual environment:
+- Step 2: Set Up Python Environment and Install Dependencies
+This project uses Python for model training. 
+
+use a virtual environment:
 
 Create and activate the virtual environment:
 
-bash
-Copy code
+``` bash
 python -m venv mlenv
+```
 Activate it:
+``` bash
 On Windows: mlenv\Scripts\activate
 On macOS/Linux: source mlenv/bin/activate
+```
+
 Install dependencies:
 
-bash
-Copy code
+``` bash
 pip install -r requirements.txt
-Step 3: Configure the Rust Backend
+```
+
+- Step 3: Configure the Rust Backend
 Ensure Rust is installed on your system, then navigate to the backend directory:
 
-bash
-Copy code
+``` bash
 cd backend
 cargo build
+```
+
 Project Structure
 Here is an overview of the main directories and files:
 
-bash
-Copy code
+``` bash
 project/
-├── backend/               # Rust backend server code
-│   ├── src/               # Rust source files
-│   └── target/            # Rust build output (ignored by .gitignore)
-├── frontend/              # Frontend code, if applicable
-├── ml/                    # Machine learning model and training code
-│   ├── data/              # Training data (ignored by .gitignore)
+├── backend/ 
+│   ├── src/               # Rust backend server code
+├── frontend/              # Frontend with vue
+├── ml/       
 │   ├── model.pth          # Saved PyTorch model
-│   ├── __init__.py        # Python code for model loading and inference
+│   ├── __init__.py        # Python code for model loading
 │   └── requirements.txt   # Python dependencies
-├── mlenv/                 # Virtual environment directory (ignored by .gitignore)
+├── mlenv/                 # python environment you will create
 └── README.md              # Project instructions
-Setting Up and Running the Project
+```
+
+# Setting Up and Running the Project
+
 1. Train the Model
 If training is required, navigate to the ml/ directory and run:
 
-bash
-Copy code
+``` bash
 python -m ml.train_model
+```
+
 This will train the model on the data in ml/data and save it as ml/model.pth.
 
 2. Run the Rust Backend Server
 To start the Rust backend:
 
-Ensure your virtual environment is activated.
-
-Navigate to the backend directory and run:
-
-bash
-Copy code
+``` bash
 cargo run
+```
 The server should start on localhost:3000 and be ready to handle requests.
 
-3. Test the Model Prediction
-To test the model prediction, use the test_model function in Python or send an image request to the Rust server. Ensure the model file model.pth is present in the ml directory.
+3. Run the frontend
+To start the frontend:
 
-For example, in Python:
+``` bash
+cd frontend
+npm run ("build" or "dev")
+```
+ 
+5. Test the Model Prediction
+To test the model prediction, use the test_model function in Python or send an image request to the Rust server.
 
-bash
-Copy code
+with command line
+
+``` bash
 python -c "from ml import test_model; test_model('path/to/image.jpg')"
+```
