@@ -1,0 +1,14 @@
+[package]
+name = "backend"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+axum-extra = "0.9.4"
+axum = { version = "0.6.4", features = ["multipart"] }
+tokio = { version = "1.0", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
+tower-http = { version = "0.3.0", features = ["cors"] }
+image = "0.25.5"
+uuid = { version = "1.11.0", features = ["v4"] }
+pyo3 = { version = "0.22.6", features = ["extension-module"] }

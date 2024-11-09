@@ -1,0 +1,2 @@
+torch==2.5.1+cpu
+numpy==1.23.1  # Any other dependencies your Python module uses
