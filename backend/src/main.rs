@@ -12,9 +12,8 @@ fn set_python_executable() {
         .join("Scripts")
         .join("python.exe")
         .canonicalize()
-        .unwrap(); // Unwrap to panic on error
+        .unwrap();
 
-    // Manually add site-packages to sys.path
     let site_packages = Path::new("..")
         .join("mlenv")
         .join("Lib")
@@ -29,29 +28,22 @@ fn set_python_executable() {
         println!("Python sys.path after appending site-packages: {:?}", sys_path);
     });
 
-    // Set the environment variable for Python executable
     env::set_var("PYTHON_SYS_EXECUTABLE", python_path);
 }
 
 fn classify_image(image_path: &str) -> Result<String, String> {
     Python::with_gil(|py| {
-        // Add the `ml` directory to the Python path
         let sys = py.import_bound("sys").map_err(|e| format!("Failed to import sys: {:?}", e))?;
         let sys_path = sys.getattr("path").map_err(|e| format!("Failed to get sys.path: {:?}", e))?;
         let ml_path = Path::new("..").canonicalize().map_err(|e| format!("Failed to resolve ml path: {:?}", e))?;
         sys_path.call_method1("append", (ml_path.to_str().unwrap(),)).map_err(|e| format!("Failed to append ml directory to Python path: {:?}", e))?;
 
-        let paths: Vec<String> = sys_path.extract().unwrap();
-        println!("Python sys.path: {:?}", paths);
-        // Import the `ml` module
         let ml = py.import_bound("ml").map_err(|e| format!("Failed to import ml module: {:?}", e))?;
 
-        // Call the `test_model` function in the `ml` module with the image path
         let result = ml
             .call_method1("test_model", (image_path,))
             .map_err(|e| format!("Failed to call test_model function: {:?}", e))?;
 
-        // Extract the classification result from the Python object as a String
         result.extract::<String>().map_err(|e| format!("Failed to extract result: {:?}", e))
     })
 }
@@ -102,7 +94,6 @@ async fn upload_image(mut multipart : Multipart) -> impl IntoResponse {
             let img = image::load_from_memory(&data).expect("Failed to load image");
 
             let img = img.to_rgba8();
-            //img.make_ascii_uppercase();
 
             let temp_filename = format!("./temp_images/{}.png", Uuid::new_v4());
             img.save(&temp_filename).expect("Failed to save temporary image");
