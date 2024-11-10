@@ -1,7 +1,7 @@
 # Description
 
 This project classifies satelite images of earth into predefined categories (cloudy, desert, green_area, and water) using a pre-trained model.
-The backend server, implemented in Rust, loads and processes the image using a Python model trained in PyTorch, frontend is dow with Vue.
+The backend server, implemented in Rust, loads and processes the image using a Python model trained in PyTorch, frontend is done with Vue.
 
 # Requirements
 Python (version 3.8 or later)
