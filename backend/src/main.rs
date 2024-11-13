@@ -126,4 +126,3 @@ async fn upload_image(mut multipart : Multipart) -> impl IntoResponse {
         message: format!("File not found"),
     })
 }
-
