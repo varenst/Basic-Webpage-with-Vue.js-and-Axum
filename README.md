@@ -78,6 +78,7 @@ This will train the model on the data in ml/data and save it as ml/model.pth.
 To start the Rust backend:
 
 ``` bash
+cd backend
 cargo run
 ```
 The server should start on localhost:3000 and be ready to handle requests.
